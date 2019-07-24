@@ -1,26 +1,69 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
-* 3. 
-* 4. 
+* 1. Window/Global Object Binding
+When in the global scope, the value of “this” will be the window/console Object;
+
+* 2. Implicit Binding
+Whenever a function is called by a preceding dot, the object before that dot is this.
+
+* 3. New binding
+Whenever a constructor function is used, this refers to the specific instance of the object that is created and returned by the constructor function.
+
+* 4. Explicit binding
+Whenever JavaScript’s call or apply method is used, this is explicitly defined.
 *
-* write out a code example of each explanation above
+
+* //write out a code example of each explanation above
 */
 
 // Principle 1
-
 // code example for Window Binding
+function sayName(name){
+    console.log(this);
+    return name 
+}
+sayName("Adrian Garcia");
 
 // Principle 2
-
 // code example for Implicit Binding
+const myName = {
+    name: 'Adrian Garcia',
+    sayAge: function(age){
+        console.log(`My name is ${this.name} and I am ${age}`);
+        console.log(this);
+    }
+};
+myName.sayAge('21');
 
 // Principle 3
-
 // code example for New Binding
+function homieIntroduction(name){
+    this.greeting = "Yooo, what's up ";
+    this.name = name;
+    this.introduce = function(){
+        console.log(this.greeting + this.name);
+        console.log(this);
+    };
+}
+
+const David = new homieIntroduction('David');
+const Jose = new homieIntroduction('Jose');
+
+David.introduce();
+Jose.introduce();
 
 // Principle 4
-
 // code example for Explicit Binding
+
+const astros = function(homerun, grandSlam) {
+    console.log(`${this.name} up to bat with bases loaded for the ${this.team}, he connects and it is a ${homerun} for his first career ${grandSlam}.`);
+};
+const playerInfo = {
+    "name": "Jose Altuve",
+    "team": "Houston Astros"
+};
+const runsScored = ["4-run home run", "Grand Slam"];
+
+astros.call(playerInfo, runsScored[0], runsScored[1]);
+astros.apply(playerInfo, runsScored);
